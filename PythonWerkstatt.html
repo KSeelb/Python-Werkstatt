@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python-Werkstatt</title>
+<meta name="description" content="Python im Browser für den ICT-Unterricht – mit Aufgaben und automatischen Tests.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+.CodeMirror { font-family: monospace; height: 300px; color: black; direction: ltr; } .CodeMirror-lines { padding: 4px 0; } .CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like { padding: 0 4px; } .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { background-color: white; } .CodeMirror-gutters { border-right: 1px solid #ddd; background-color: #f7f7f7; white-space: nowrap; } .CodeMirror-linenumbers {} .CodeMirror-linenumber { padding: 0 3px 0 5px; min-width: 20px; text-align: right; color: #999; white-space: nowrap; } .CodeMirror-guttermarker { color: black; } .CodeMirror-guttermarker-subtle { color: #999; } .CodeMirror-cursor { border-left: 1px solid black; border-right: none; width: 0; } .CodeMirror div.CodeMirror-secondarycursor { border-left: 1px solid silver; } .cm-fat-cursor .CodeMirror-cursor { width: auto; border: 0 !important; background: #7e7; } .cm-fat-cursor div.CodeMirror-cursors { z-index: 1; } .cm-fat-cursor .CodeMirror-line::selection, .cm-fat-cursor .CodeMirror-line > span::selection, .cm-fat-cursor .CodeMirror-line > span > span::selection { background: transparent; } .cm-fat-cursor .CodeMirror-line::-moz-selection, .cm-fat-cursor .CodeMirror-line > span::-moz-selection, .cm-fat-cursor .CodeMirror-line > span > span::-moz-selection { background: transparent; } .cm-fat-cursor { caret-color: transparent; } @-moz-keyframes blink { 0% {} 50% { background-color: transparent; } 100% {} } @-webkit-keyframes blink { 0% {} 50% { background-color: transparent; } 100% {} } @keyframes blink { 0% {} 50% { background-color: transparent; } 100% {} } .CodeMirror-overwrite .CodeMirror-cursor {} .cm-tab { display: inline-block; text-decoration: inherit; } .CodeMirror-rulers { position: absolute; left: 0; right: 0; top: -50px; bottom: 0; overflow: hidden; } .CodeMirror-ruler { border-left: 1px solid #ccc; top: 0; bottom: 0; position: absolute; } .CodeMirror { position: relative; overflow: hidden; background: white; } .CodeMirror-scroll { overflow: scroll !important; margin-bottom: -50px; margin-right: -50px; padding-bottom: 50px; height: 100%; outline: none; position: relative; z-index: 0; } .CodeMirror-sizer { position: relative; border-right: 50px solid transparent; } .CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { position: absolute; z-index: 6; display: none; outline: none; } .CodeMirror-vscrollbar { right: 0; top: 0; overflow-x: hidden; overflow-y: scroll; } .CodeMirror-hscrollbar { bottom: 0; left: 0; overflow-y: hidden; overflow-x: scroll; } .CodeMirror-scrollbar-filler { right: 0; bottom: 0; } .CodeMirror-gutter-filler { left: 0; bottom: 0; } .CodeMirror-gutters { position: absolute; left: 0; top: 0; min-height: 100%; z-index: 3; } .CodeMirror-gutter { white-space: normal; height: 100%; display: inline-block; vertical-align: top; margin-bottom: -50px; } .CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: none !important; border: none !important; } .CodeMirror-gutter-background { position: absolute; top: 0; bottom: 0; z-index: 4; } .CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; } .CodeMirror-gutter-wrapper ::selection { background-color: transparent } .CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent } .CodeMirror-lines { cursor: text; min-height: 1px; } .CodeMirror pre.CodeMirror-line, .CodeMirror pre.CodeMirror-line-like { -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0; border-width: 0; background: transparent; font-family: inherit; font-size: inherit; margin: 0; white-space: pre; word-wrap: normal; line-height: inherit; color: inherit; z-index: 2; position: relative; overflow: visible; -webkit-tap-highlight-color: transparent; -webkit-font-variant-ligatures: contextual; font-variant-ligatures: contextual; } .CodeMirror-wrap pre.CodeMirror-line, .CodeMirror-wrap pre.CodeMirror-line-like { word-wrap: break-word; white-space: pre-wrap; word-break: normal; } .CodeMirror-linebackground { position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 0; } .CodeMirror-linewidget { position: relative; z-index: 2; padding: 0.1px; } .CodeMirror-widget {} .CodeMirror-rtl pre { direction: rtl; } .CodeMirror-code { outline: none; } .CodeMirror-scroll, .CodeMirror-sizer, .CodeMirror-gutter, .CodeMirror-gutters, .CodeMirror-linenumber { -moz-box-sizing: content-box; box-sizing: content-box; } .CodeMirror-measure { position: absolute; width: 100%; height: 0; overflow: hidden; visibility: hidden; } .CodeMirror-cursor { position: absolute; pointer-events: none; } .CodeMirror-measure pre { position: static; } div.CodeMirror-cursors { visibility: hidden; position: relative; z-index: 3; } div.CodeMirror-dragcursors { visibility: visible; } .CodeMirror-focused div.CodeMirror-cursors { visibility: visible; } .CodeMirror-selected { background: #d9d9d9; } .CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; } .CodeMirror-crosshair { cursor: crosshair; } .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; } .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; } .cm-searching { background-color: #ffa; background-color: rgba(255, 255, 0, .4); } .cm-force-border { padding-right: .1px; } @media print { .CodeMirror div.CodeMirror-cursors { visibility: hidden; } } .cm-tab-wrap-hack:after { content: ''; } span.CodeMirror-selectedtext { background: none; }
+:root{
+  --bg:#F3F5F6; --surface:#FFFFFF; --ink:#1B2126; --muted:#5B6570; --line:#D6DCE1; --band:#E8ECEF;
+  --accent:#2E5A78; --accent-ink:#FFFFFF; --accent-soft:#DCE6EE;
+  --code-bg:#FBFCFC; --gutter:#F0F2F4; --console-bg:#1E2429; --console-ink:#E6EAED; --console-muted:#9AA5AE;
+  --ok:#2F7D4F; --ok-soft:#E1F1E7; --bad:#B23B3B; --bad-soft:#F7E3E3; --warn-soft:#FFF4D6; --warn:#8A6100;
+  --kw:#2E5A78; --str:#7A4E12; --num:#6B3FA0; --com:#7C8791; --errline:#FBE3E3;
+  --font:"Lexend","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#121619; --surface:#1A1F23; --ink:#E3E8EC; --muted:#9AA4AD; --line:#2F363C; --band:#22292E;
+    --accent:#8DB4D1; --accent-ink:#0F1418; --accent-soft:#233444;
+    --code-bg:#161B1F; --gutter:#1C2226; --console-bg:#0C0F12; --console-ink:#E3E8EC; --console-muted:#8C98A2;
+    --ok:#6FC08F; --ok-soft:#1C3326; --bad:#E88383; --bad-soft:#3A2123; --warn-soft:#3A3019; --warn:#E6C06A;
+    --kw:#8DB4D1; --str:#E0B070; --num:#C3A2EE; --com:#7F8B95; --errline:#3A2123;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121619; --surface:#1A1F23; --ink:#E3E8EC; --muted:#9AA4AD; --line:#2F363C; --band:#22292E;
+  --accent:#8DB4D1; --accent-ink:#0F1418; --accent-soft:#233444;
+  --code-bg:#161B1F; --gutter:#1C2226; --console-bg:#0C0F12; --console-ink:#E3E8EC; --console-muted:#8C98A2;
+  --ok:#6FC08F; --ok-soft:#1C3326; --bad:#E88383; --bad-soft:#3A2123; --warn-soft:#3A3019; --warn:#E6C06A;
+  --kw:#8DB4D1; --str:#E0B070; --num:#C3A2EE; --com:#7F8B95; --errline:#3A2123;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg); color:var(--ink); font-family:var(--font); font-size:15px; line-height:1.45;
+  padding-inline:16px; padding-block:14px 32px}
+.app{max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:14px}
+button{font:inherit}
+.topbar{display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:space-between}
+.brand{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.brand h1{margin:0; font-size:20px; font-weight:700}
+.brand .sub{font-size:13px; color:var(--muted)}
+.namefield{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted)}
+.namefield input{font:inherit; font-size:15px; color:var(--ink); background:var(--surface); border:1px solid var(--line);
+  border-radius:8px; padding:6px 10px; width:13rem; max-width:52vw}
+.namefield input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:12px}
+.task{padding:14px 18px; display:flex; flex-direction:column; gap:8px}
+.task-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
+.task h2{margin:0; font-size:18px; text-wrap:balance}
+.task .kind{font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:500}
+.task-text{margin:0; max-width:78ch; white-space:pre-wrap}
+.task code, .tests code{font-family:var(--mono); font-size:.9em; background:var(--band); padding:.05em .35em; border-radius:4px}
+.restored{font-size:13px; color:var(--muted); display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.linkbtn{background:none; border:0; color:var(--accent); padding:0; cursor:pointer; text-decoration:underline; font-size:13px}
+
+.work{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:14px; align-items:stretch}
+@media (max-width:900px){ .work{grid-template-columns:1fr} }
+.pane{display:flex; flex-direction:column; min-width:0; overflow:hidden}
+.pane-head{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px 8px 14px;
+  border-bottom:1px solid var(--line); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:500}
+
+.keys{display:flex; gap:6px; padding:8px 10px; border-bottom:1px solid var(--line); overflow-x:auto; background:var(--band)}
+.keys button{font-family:var(--mono); font-size:16px; min-width:40px; height:38px; padding:0 10px; border-radius:8px;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; flex:0 0 auto}
+.keys button.wide{font-family:var(--font); font-size:13px}
+.keys button:active{background:var(--accent-soft)}
+.editor-host{flex:1; min-height:360px; background:var(--code-bg)}
+.CodeMirror{height:100%; min-height:360px; font-family:var(--mono); font-size:15px; line-height:1.55; background:var(--code-bg); color:var(--ink)}
+.CodeMirror-gutters{background:var(--gutter); border-right:1px solid var(--line)}
+.CodeMirror-linenumber{color:var(--com)}
+.CodeMirror-cursor{border-left:2px solid var(--ink)}
+.CodeMirror-selected, .CodeMirror-focused .CodeMirror-selected{background:var(--accent-soft)}
+.cm-keyword{color:var(--kw); font-weight:700}
+.cm-builtin{color:var(--kw)}
+.cm-string{color:var(--str)}
+.cm-number{color:var(--num)}
+.cm-comment{color:var(--com); font-style:italic}
+.cm-operator, .cm-variable, .cm-def, .cm-property{color:var(--ink)}
+.errline{background:var(--errline)}
+
+.actions{display:flex; flex-wrap:wrap; gap:8px; padding:10px; border-top:1px solid var(--line)}
+.btn{border-radius:9px; padding:9px 14px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer; font-size:14px; font-weight:500; display:inline-flex; align-items:center; gap:7px}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+.btn.check{border-color:var(--accent); color:var(--accent)}
+.btn:disabled{opacity:.45; cursor:default}
+.btn:focus-visible, .keys button:focus-visible, .linkbtn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.spacer{flex:1}
+
+.console{background:var(--console-bg); color:var(--console-ink); font-family:var(--mono); font-size:14px; line-height:1.5;
+  padding:12px 14px; flex:1; min-height:220px; max-height:520px; overflow:auto; white-space:pre-wrap; word-break:break-word}
+.console .hint{color:var(--console-muted)}
+.console .inputline{display:inline-flex; align-items:baseline; min-width:8rem; width:40%; vertical-align:baseline}
+.console .inputline input{flex:1; min-width:4rem; font:inherit; color:var(--console-ink); background:transparent; border:0;
+  border-bottom:2px solid var(--console-muted); outline:none; padding:0 2px}
+.console .inputline input:focus{border-bottom-color:var(--console-ink)}
+.console .typed{color:var(--console-ink); font-weight:700}
+.status{font-size:13px; padding:8px 14px; border-top:1px solid var(--line); color:var(--muted); min-height:36px}
+
+.errorbox{margin:10px; padding:12px 14px; border-radius:10px; background:var(--bad-soft); color:var(--ink); border:1px solid var(--bad); display:flex; flex-direction:column; gap:4px}
+.errorbox .etitle{font-weight:700; color:var(--bad)}
+.errorbox .eraw{font-family:var(--mono); font-size:12.5px; color:var(--muted)}
+
+.tests{padding:12px 18px 16px; display:flex; flex-direction:column; gap:10px}
+.tests-head{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+.tests-head h3{margin:0; font-size:15px}
+.summary{font-size:13px; font-weight:500; padding:3px 10px; border-radius:999px; background:var(--band); color:var(--muted)}
+.summary.ok{background:var(--ok-soft); color:var(--ok)} .summary.bad{background:var(--bad-soft); color:var(--bad)}
+.testlist{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:10px; margin:0; padding:0; list-style:none}
+.test{border:1px solid var(--line); border-radius:10px; padding:10px 12px; display:flex; flex-direction:column; gap:6px; font-size:13.5px}
+.test.ok{border-color:var(--ok); background:var(--ok-soft)} .test.bad{border-color:var(--bad); background:var(--bad-soft)}
+.test .t-head{display:flex; justify-content:space-between; align-items:center; font-weight:500}
+.badge{font-size:12px; font-weight:700; padding:1px 8px; border-radius:999px; border:1px solid currentColor}
+.test.ok .badge{color:var(--ok)} .test.bad .badge{color:var(--bad)} .test .badge.open{color:var(--muted)}
+.test .row{display:grid; grid-template-columns:6.8rem minmax(0,1fr); gap:6px; align-items:start}
+.test .lab{color:var(--muted); font-size:12px; padding-top:2px}
+.test pre{margin:0; font-family:var(--mono); font-size:12.5px; white-space:pre-wrap; word-break:break-word; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:4px 7px}
+
+.share{padding:14px 18px; display:flex; flex-direction:column; gap:10px}
+.share textarea{width:100%; font-family:var(--mono); font-size:12px; border:1px solid var(--line); border-radius:8px; padding:8px; background:var(--code-bg); color:var(--ink); resize:vertical; min-height:70px}
+.share .row{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.note{font-size:13px; color:var(--muted); margin:0}
+
+.teacher{padding:14px 18px; display:flex; flex-direction:column; gap:12px}
+.teacher h2{margin:0; font-size:17px}
+.field{display:flex; flex-direction:column; gap:4px; font-size:13px; color:var(--muted)}
+.field input, .field textarea{font:inherit; font-size:14px; color:var(--ink); background:var(--code-bg); border:1px solid var(--line); border-radius:8px; padding:7px 9px}
+.field textarea.mono{font-family:var(--mono); font-size:13px}
+.trows{display:flex; flex-direction:column; gap:8px}
+.trow{display:grid; grid-template-columns:1fr 1fr auto; gap:8px; align-items:end; border:1px solid var(--line); border-radius:10px; padding:8px}
+@media (max-width:640px){ .trow{grid-template-columns:1fr} }
+.footer{font-size:12.5px; color:var(--muted); display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:space-between}
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><h1>Python-Werkstatt</h1><span class="sub">ICT · läuft direkt im Browser</span></div>
+    <label class="namefield" for="studentName">Dein Name
+      <input id="studentName" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Vorname Nachname">
+    </label>
+  </div>
+
+  <section class="panel task" id="taskPanel" aria-labelledby="taskTitle">
+    <div class="task-head">
+      <h2 id="taskTitle">Freies Programmieren</h2>
+      <span class="kind" id="taskKind">Aufgabe</span>
+    </div>
+    <p class="task-text" id="taskText"></p>
+    <div class="restored" id="restoredNote" hidden>
+      <span>Deine letzte Version wurde wiederhergestellt.</span>
+      <button class="linkbtn" id="resetStarter" type="button">Mit dem Startcode neu beginnen</button>
+    </div>
+  </section>
+
+  <div class="work">
+    <section class="panel pane" aria-label="Code">
+      <div class="pane-head"><span>Dein Programm</span><span id="saveState"></span></div>
+      <div class="keys" id="keys" aria-label="Zeichen einfügen">
+        <button type="button" class="wide" data-k="TAB" title="Einrücken">⇥ Tab</button>
+        <button type="button" data-k="(">(</button><button type="button" data-k=")">)</button>
+        <button type="button" data-k=":">:</button><button type="button" data-k='"'>"</button>
+        <button type="button" data-k="'">'</button><button type="button" data-k="_">_</button>
+        <button type="button" data-k="#">#</button><button type="button" data-k="=">=</button>
+        <button type="button" data-k="<">&lt;</button><button type="button" data-k=">">&gt;</button>
+        <button type="button" data-k="[">[</button><button type="button" data-k="]">]</button>
+        <button type="button" data-k="+">+</button><button type="button" data-k="*">*</button>
+        <button type="button" class="wide" data-k="UNDO" title="Rückgängig">↶ Zurück</button>
+      </div>
+      <div class="editor-host" id="editorHost"></div>
+      <div class="actions">
+        <button class="btn primary" id="runBtn" type="button">▶ Ausführen</button>
+        <button class="btn" id="stopBtn" type="button" disabled>■ Stopp</button>
+        <button class="btn check" id="checkBtn" type="button" hidden>✓ Prüfen</button>
+        <span class="spacer"></span>
+        <button class="btn" id="shareBtn" type="button">Link erzeugen</button>
+      </div>
+    </section>
+
+    <section class="panel pane" aria-label="Konsole">
+      <div class="pane-head"><span>Konsole</span><button class="linkbtn" id="clearBtn" type="button">leeren</button></div>
+      <div class="console" id="console" aria-live="polite"><span class="hint">Hier erscheint die Ausgabe deines Programms.</span></div>
+      <div id="errorHost"></div>
+      <div class="status" id="status">Bereit.</div>
+    </section>
+  </div>
+
+  <section class="panel tests" id="testsPanel" hidden aria-labelledby="testsTitle">
+    <div class="tests-head">
+      <h3 id="testsTitle">Tests</h3>
+      <span class="summary" id="testSummary">noch nicht geprüft</span>
+    </div>
+    <ul class="testlist" id="testList"></ul>
+  </section>
+
+  <section class="panel share" id="sharePanel" hidden aria-labelledby="shareTitle">
+    <h3 id="shareTitle" style="margin:0;font-size:15px">Dein Link</h3>
+    <p class="note" id="shareNote">Kopiere den Link und füge ihn in deinen OneNote-Abschnitt ein. Wer ihn öffnet, sieht genau dein Programm.</p>
+    <textarea id="shareText" readonly rows="3"></textarea>
+    <div class="row">
+      <button class="btn primary" id="copyBtn" type="button">Kopieren</button>
+      <span class="note" id="copyState"></span>
+    </div>
+  </section>
+
+  <section class="panel teacher" id="teacherPanel" hidden aria-labelledby="teacherTitle">
+    <h2 id="teacherTitle">Aufgabe erstellen</h2>
+    <p class="note">Der Code im Editor wird zum Startcode. Jeder Test gibt vor, was eingegeben wird (eine Eingabe pro Zeile) und was das Programm ausgeben soll. Aufforderungstexte von <code>input()</code> zählen nicht zur Ausgabe.</p>
+    <label class="field" for="tTitle">Titel<input id="tTitle" type="text"></label>
+    <label class="field" for="tText">Aufgabentext<textarea id="tText" rows="3"></textarea></label>
+    <div class="trows" id="tRows"></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="addTest" type="button">+ Test hinzufügen</button>
+      <button class="btn check" id="applyTask" type="button">Aufgabe übernehmen und prüfen</button>
+      <button class="btn primary" id="taskLinkBtn" type="button">Aufgabenlink erzeugen</button>
+    </div>
+  </section>
+
+  <div class="footer">
+    <span>Dein Code wird in diesem Browser gespeichert. Abgeben kannst du ihn nur über „Link erzeugen“.</span>
+    <button class="linkbtn" id="teacherToggle" type="button">Aufgabe erstellen (Lehrkraft)</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+<script>
+(function(){
+"use strict";
+
+/* ---------- Beispielaufgabe, wenn kein Link geöffnet wurde ---------- */
+const BEISPIEL = {
+  titel: "Zwei Zahlen addieren",
+  text: "Schreibe ein Programm, das zwei ganze Zahlen einliest und ihre Summe genau in dieser Form ausgibt: `Summe: 12`\nDrücke „Prüfen“, um dein Programm mit den Tests zu testen. Die Tests vergleichen deine Ausgabe Zeichen für Zeichen.",
+  start: "# Lies zwei Zahlen ein\nzahl1 = input(\"Erste Zahl: \")\nzahl2 = input(\"Zweite Zahl: \")\n\n# Gib die Summe aus\n",
+  tests: [
+    { eingabe: ["5", "7"], ausgabe: "Summe: 12" },
+    { eingabe: ["-3", "3"], ausgabe: "Summe: 0" },
+    { eingabe: ["100", "1"], ausgabe: "Summe: 101" }
+  ]
+};
+const LIMIT_MS = 8000, MAX_LINES = 2000;
+
+/* ---------- kleine Helfer ---------- */
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } }
+};
+function hashStr(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h.toString(36); }
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function richText(s){ return esc(s).replace(/`([^`\n]+)`/g, "<code>$1</code>"); }
+function fixQuotes(s){ return s.replace(/[“”„‟″«»]/g,'"').replace(/[‘’‚‛′]/g,"'").replace(/ /g," "); }
+
+/* ---------- Link-Kodierung: JSON -> deflate -> base64url ---------- */
+function b64u(bytes){ let s=""; for(let i=0;i<bytes.length;i+=0x8000) s+=String.fromCharCode.apply(null, bytes.subarray(i,i+0x8000)); return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function unb64u(str){ str=str.replace(/-/g,"+").replace(/_/g,"/"); while(str.length%4) str+="="; const bin=atob(str); const u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u; }
+async function pipe(bytes, stream){ const out=new Response(new Blob([bytes]).stream().pipeThrough(stream)); return new Uint8Array(await out.arrayBuffer()); }
+async function encodePayload(obj){
+  const raw=new TextEncoder().encode(JSON.stringify(obj));
+  if (typeof CompressionStream!=="undefined"){ try{ return "z"+b64u(await pipe(raw,new CompressionStream("deflate-raw"))); }catch(e){} }
+  return "u"+b64u(raw);
+}
+async function decodePayload(h){
+  if(!h || h.length<2) return null;
+  const kind=h[0], body=h.slice(1);
+  try{
+    let bytes=unb64u(body);
+    if(kind==="z") bytes=await pipe(bytes,new DecompressionStream("deflate-raw"));
+    else if(kind!=="u") return null;
+    return JSON.parse(new TextDecoder().decode(bytes));
+  }catch(e){ return null; }
+}
+function baseUrl(){ return location.href.split("#")[0]; }
+
+/* ---------- Zustand ---------- */
+let task = null;           // {titel,text,start,tests}
+let taskKey = "frei";
+let cm = null;
+let running = false, stopReq = null, pendingInput = null;
+
+/* ---------- Editor ---------- */
+function setupEditor(code){
+  cm = CodeMirror($("editorHost"), {
+    value: code, mode: {name:"python", version:3}, lineNumbers:true, indentUnit:4, tabSize:4,
+    indentWithTabs:false, smartIndent:true, lineWrapping:false,
+    spellcheck:false, autocorrect:false, autocapitalize:false,
+    extraKeys:{
+      "Tab": c => c.somethingSelected() ? c.indentSelection("add") : c.replaceSelection("    ","end"),
+      "Shift-Tab": c => c.indentSelection("subtract"),
+      "Ctrl-Enter": () => runInteractive(), "Cmd-Enter": () => runInteractive()
+    }
+  });
+  cm.on("beforeChange", (c, ch) => {
+    if (!ch.update) return;
+    const t = ch.text.map(fixQuotes);
+    if (t.join("\n") !== ch.text.join("\n")) ch.update(ch.from, ch.to, t);
+  });
+  let timer=null;
+  cm.on("change", () => { clearErrorLine(); clearTimeout(timer); timer=setTimeout(saveLocal, 400); $("saveState").textContent=""; });
+}
+function saveLocal(){
+  const ok = store.set("pw:"+taskKey, cm.getValue());
+  $("saveState").textContent = ok ? "gespeichert" : "";
+}
+let errLine = null;
+function markErrorLine(n){ clearErrorLine(); if(!n || n<1 || n>cm.lineCount()) return; errLine = cm.addLineClass(n-1,"background","errline"); cm.scrollIntoView({line:n-1,ch:0},80); }
+function clearErrorLine(){ if(errLine!==null){ cm.removeLineClass(errLine,"background","errline"); errLine=null; } }
+
+$("keys").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b || !cm) return;
+  const k = b.dataset.k;
+  if (k==="TAB") cm.replaceSelection("    ","end");
+  else if (k==="UNDO") cm.undo();
+  else cm.replaceSelection(k,"end");
+  cm.focus();
+});
+
+/* ---------- Konsole ---------- */
+const con = $("console");
+let conBuf = "", conFlushQueued = false, conText = null;
+function conClear(){ con.textContent=""; conText=null; conBuf=""; }
+function conWrite(s){ conBuf += s; if(!conFlushQueued){ conFlushQueued=true; requestAnimationFrame(conFlush); } }
+function conFlush(){
+  conFlushQueued=false; if(!conBuf) return;
+  if(!conText){ conText=document.createTextNode(""); con.appendChild(conText); }
+  conText.appendData(conBuf); conBuf=""; con.scrollTop=con.scrollHeight;
+}
+function conAppendNode(node){ conFlush(); con.appendChild(node); conText=null; con.scrollTop=con.scrollHeight; }
+function setStatus(t){ $("status").textContent=t; }
+
+function askInput(prompt){
+  conWrite(prompt); conFlush();
+  return new Promise((resolve, reject) => {
+    const row=document.createElement("div"); row.className="inputline";
+    const inp=document.createElement("input"); inp.type="text"; inp.id="consoleInput";
+    inp.setAttribute("autocomplete","off"); inp.setAttribute("autocorrect","off"); inp.setAttribute("autocapitalize","off"); inp.spellcheck=false;
+    inp.setAttribute("aria-label","Eingabe für dein Programm");
+    row.appendChild(inp);
+    // Eingabezeile direkt hinter die Aufforderung setzen
+    conAppendNode(row);
+    setStatus("Dein Programm wartet auf eine Eingabe. Tippe sie ein und drücke Enter.");
+    inp.focus({preventScroll:true});
+    pendingInput = { reject: (err) => { row.remove(); reject(err); } };
+    inp.addEventListener("keydown", ev => {
+      if (ev.key!=="Enter") return;
+      ev.preventDefault();
+      const v = fixQuotes(inp.value);
+      const span=document.createElement("span"); span.className="typed"; span.textContent=v;
+      row.replaceWith(span); conText=null; conWrite("\n");
+      pendingInput=null; setStatus("Läuft …");
+      resolve(v);
+    });
+  });
+}
+
+/* ---------- Python ausführen ---------- */
+function readFile(f){
+  if (Sk.builtinFiles===undefined || Sk.builtinFiles.files[f]===undefined) throw "Datei nicht gefunden: '"+f+"'";
+  return Sk.builtinFiles.files[f];
+}
+class StopSignal extends Error { constructor(why){ super(why); this.why=why; } }
+
+async function execute(code, opts){
+  // opts: {onOut, onInput}  -> {error, stopped}
+  let active=0, last=performance.now(), lines=0;
+  const check = () => {
+    if (stopReq) throw new StopSignal(stopReq);
+    if (active + (performance.now()-last) > LIMIT_MS) throw new StopSignal("zeit");
+  };
+  Sk.configure({
+    __future__: Sk.python3, read: readFile, execLimit: null, yieldLimit: 40,
+    killableWhile: true, killableFor: true, inputfunTakesPrompt: true,
+    output: t => { lines += (t.match(/\n/g)||[]).length; if (lines > MAX_LINES){ stopReq = stopReq || "zeilen"; return; } opts.onOut(t); },
+    inputfun: p => {
+      active += performance.now()-last;
+      return Promise.resolve(opts.onInput(String(p))).then(v => { last=performance.now(); return v; });
+    }
+  });
+  try{
+    await Sk.misceval.asyncToPromise(
+      () => Sk.importMainWithBody("<stdin>", false, code, true),
+      { "Sk.yield": () => { check(); return null; }, "*": () => { check(); return null; } }
+    );
+    if (stopReq) return { stopped: stopReq };
+    return {};
+  }catch(e){
+    if (e instanceof StopSignal) return { stopped: e.why };
+    if (stopReq) return { stopped: stopReq };
+    return { error: e };
+  }
+}
+
+/* ---------- Fehlermeldungen verständlich machen ---------- */
+function errorInfo(e){
+  let name = "Fehler", msg = "", line = null;
+  if (e && e.tp$name){
+    name = e.tp$name;
+    try{ msg = e.args && e.args.v && e.args.v.length ? Sk.ffi.remapToJs(e.args.v[0]) : ""; }catch(x){ msg = ""; }
+    if (typeof msg !== "string") msg = String(msg);
+    if (e.traceback && e.traceback.length) line = e.traceback[0].lineno;
+  } else if (e && e.message){ msg = e.message; } else { msg = String(e); }
+  return { name, msg, line, hint: hintFor(name, msg) };
+}
+function hintFor(name, msg){
+  const m = msg || "";
+  if (name==="SyntaxError" || name==="IndentationError" || name==="TokenError"){
+    if (/indent/i.test(m)) return "Die Einrückung stimmt nicht. Nach einer Zeile mit Doppelpunkt (if, for, while, else …) müssen die nächsten Zeilen eingerückt sein – alle gleich weit.";
+    if (/EOF|end of file/i.test(m)) return "Python ist am Ende angekommen, obwohl noch etwas fehlt. Meist ist eine Klammer oder ein Gänsefüßchen nicht geschlossen.";
+    return "Python versteht diese Zeile nicht. Prüfe hier oder in der Zeile davor: Fehlt ein Doppelpunkt nach if, for oder while? Sind alle Klammern und Gänsefüßchen geschlossen? Stimmt die Einrückung?";
+  }
+  if (name==="NameError"){
+    const n = (m.match(/'([^']+)'/)||[])[1];
+    return (n ? "Python kennt den Namen „"+n+"“ nicht. " : "Python kennt einen Namen nicht. ") +
+      "Hast du dich vertippt (auch Groß- und Kleinschreibung)? Wolltest du einen Text ausgeben und die Gänsefüßchen vergessen? Oder benutzt du eine Variable, bevor sie einen Wert hat?";
+  }
+  if (name==="TypeError"){
+    if (/concatenate|unsupported operand|must be str|can only/i.test(m)) return "Hier werden Text (String) und Zahl gemischt. input() liefert immer Text. Wandle mit int() oder float() in eine Zahl um – oder mit str() in Text.";
+    if (/not callable/i.test(m)) return "Hier wird etwas wie ein Befehl mit Klammern aufgerufen, das kein Befehl ist.";
+    return "Hier passt der Datentyp nicht zur Rechnung oder zum Befehl.";
+  }
+  if (name==="ValueError"){
+    if (/int\(\)/.test(m)) return "int() kann diese Eingabe nicht in eine ganze Zahl umwandeln. Kommazahlen (mit Punkt) gehen mit float(), Buchstaben gar nicht.";
+    if (/float/.test(m)) return "float() kann diese Eingabe nicht in eine Zahl umwandeln. Kommazahlen schreibt Python mit Punkt: 13.5";
+    return "Der Wert passt nicht zu dem, was der Befehl erwartet.";
+  }
+  if (name==="ZeroDivisionError") return "Hier wird durch 0 geteilt. Das geht auch in Python nicht.";
+  if (name==="IndexError") return "Du greifst auf eine Stelle zu, die es nicht gibt. Denk daran: Python beginnt bei 0 zu zählen.";
+  if (name==="AttributeError") return "Diesen Befehl gibt es für diesen Datentyp nicht. Prüfe die Schreibweise nach dem Punkt.";
+  if (name==="ImportError" || name==="ModuleNotFoundError") return "Dieses Modul gibt es hier nicht. Im Browser-Python sind nicht alle Module vorhanden.";
+  return "";
+}
+function showError(e){
+  const info = errorInfo(e);
+  const box = document.createElement("div"); box.className="errorbox"; box.setAttribute("role","alert");
+  box.innerHTML = '<span class="etitle">' + (info.line ? "Fehler in Zeile " + info.line : "Fehler") + '</span>'
+    + (info.hint ? '<span>' + esc(info.hint) + '</span>' : '')
+    + '<span class="eraw">' + esc(info.name + (info.msg ? ": " + info.msg : "")) + '</span>';
+  $("errorHost").replaceChildren(box);
+  markErrorLine(info.line);
+  return info;
+}
+function stopText(why){
+  if (why==="zeit") return "Dein Programm läuft zu lange und wurde angehalten. Hast du eine Schleife, die nie aufhört?";
+  if (why==="zeilen") return "Dein Programm hat mehr als " + MAX_LINES + " Zeilen ausgegeben und wurde angehalten. Hast du eine Schleife, die nie aufhört?";
+  return "Du hast das Programm angehalten.";
+}
+function showStop(why){
+  const box = document.createElement("div"); box.className="errorbox"; box.setAttribute("role","alert");
+  box.innerHTML = '<span class="etitle">Angehalten</span><span>' + esc(stopText(why)) + '</span>';
+  $("errorHost").replaceChildren(box);
+}
+
+function setRunning(on){
+  running = on;
+  $("runBtn").disabled = on; $("checkBtn").disabled = on; $("stopBtn").disabled = !on;
+}
+
+async function runInteractive(){
+  if (running) return;
+  $("errorHost").replaceChildren(); clearErrorLine(); conClear();
+  setRunning(true); stopReq=null; setStatus("Läuft …");
+  const res = await execute(fixQuotes(cm.getValue()), { onOut: conWrite, onInput: askInput });
+  conFlush(); pendingInput=null;
+  con.querySelectorAll(".inputline").forEach(n=>n.remove());
+  if (res.error){ const info=showError(res.error); setStatus(info.line ? "Fehler in Zeile " + info.line + "." : "Fehler."); }
+  else if (res.stopped){ showStop(res.stopped); setStatus("Angehalten."); }
+  else { if(!con.textContent) con.innerHTML='<span class="hint">(Dein Programm hat nichts ausgegeben.)</span>'; setStatus("Fertig."); }
+  setRunning(false); stopReq=null;
+}
+
+$("runBtn").addEventListener("click", runInteractive);
+$("stopBtn").addEventListener("click", () => {
+  stopReq = "user";
+  if (pendingInput){ const p=pendingInput; pendingInput=null; p.reject(new StopSignal("user")); }
+});
+$("clearBtn").addEventListener("click", () => { conClear(); $("errorHost").replaceChildren(); });
+
+/* ---------- Tests ---------- */
+function matches(out, t){ return t.modus==="enthaelt" ? norm(out).includes(norm(t.ausgabe)) : norm(out)===norm(t.ausgabe); }
+function sameNumbers(a, b){ const n=x=>(String(x).match(/-?\d+(?:\.\d+)?/g)||[]).join(" "); const nb=n(b); return nb!=="" && n(a)===nb; }
+function norm(s){ return String(s).replace(/\r/g,"").split("\n").map(l=>l.replace(/\s+$/,"")).join("\n").replace(/\n+$/,"").replace(/^\n+/,""); }
+function renderTests(results){
+  const list=$("testList"); list.replaceChildren();
+  if (!task || !task.tests || !task.tests.length){ $("testsPanel").hidden=true; return; }
+  $("testsPanel").hidden=false;
+  let passed=0;
+  task.tests.forEach((t,i)=>{
+    const r = results ? results[i] : null;
+    if (r && r.ok) passed++;
+    const li=document.createElement("li"); li.className="test" + (r ? (r.ok?" ok":" bad") : "");
+    const ein = (t.eingabe||[]).length ? (t.eingabe).join("\n") : "(keine)";
+    let html = '<div class="t-head"><span>Test ' + (i+1) + '</span><span class="badge' + (r?"":" open") + '">' + (r ? (r.ok?"bestanden":"nicht bestanden") : "offen") + '</span></div>'
+      + '<div class="row"><span class="lab">Eingabe</span><pre>' + esc(ein) + '</pre></div>'
+      + '<div class="row"><span class="lab">' + (t.modus==="enthaelt" ? "muss enthalten" : "erwartet") + '</span><pre>' + esc(norm(t.ausgabe)||"(keine Ausgabe)") + '</pre></div>';
+    if (r && !r.ok){
+      html += '<div class="row"><span class="lab">dein Programm</span><pre>' + esc(norm(r.out)||"(keine Ausgabe)") + '</pre></div>';
+      if (r.note) html += '<div class="row"><span class="lab">Hinweis</span><span>' + esc(r.note) + '</span></div>';
+    }
+    li.innerHTML = html; list.appendChild(li);
+  });
+  const s=$("testSummary");
+  if (!results){ s.className="summary"; s.textContent="noch nicht geprüft"; }
+  else { s.className="summary " + (passed===task.tests.length ? "ok" : "bad"); s.textContent = passed + " von " + task.tests.length + " Tests bestanden"; }
+}
+
+async function runTests(){
+  if (running || !task || !task.tests) return;
+  $("errorHost").replaceChildren(); clearErrorLine();
+  setRunning(true); setStatus("Prüfe …");
+  const code = fixQuotes(cm.getValue()); const results=[];
+  for (const t of task.tests){
+    stopReq=null;
+    let out=""; const q=[...(t.eingabe||[])]; let tooMany=false;
+    const res = await execute(code, {
+      onOut: s => { out += s; },
+      onInput: () => { if (!q.length){ tooMany=true; stopReq="eingabe"; return ""; } return q.shift(); }
+    });
+    let ok=false, note="";
+    if (tooMany) note="Dein Programm fragt öfter nach einer Eingabe, als der Test vorgibt.";
+    else if (res.error){ const info=errorInfo(res.error); note = "Fehler" + (info.line ? " in Zeile " + info.line : "") + ": " + info.name + (info.msg ? " – " + info.msg : ""); }
+    else if (res.stopped) note = stopText(res.stopped);
+    else if (q.length) { note = "Dein Programm hat nicht alle Eingaben abgefragt."; ok=false; }
+    else ok = matches(out, t);
+    if (!ok && !note && norm(out).toLowerCase()===norm(t.ausgabe).toLowerCase()) note="Fast: Achte auf Groß- und Kleinschreibung.";
+    else if (!ok && !note && norm(out).replace(/\s+/g,"")===norm(t.ausgabe).replace(/\s+/g,"")) note="Fast: Achte auf die Leerzeichen.";
+    else if (!ok && !note && sameNumbers(out, t.ausgabe)) note="Die Zahlen stimmen schon. Aber die Ausgabe muss genau so aussehen wie bei „erwartet“ – auch der Text davor.";
+    results.push({ok, out, note});
+  }
+  stopReq=null; setRunning(false);
+  renderTests(results);
+  const n=results.filter(r=>r.ok).length;
+  setStatus(n===results.length ? "Alle Tests bestanden." : n + " von " + results.length + " Tests bestanden.");
+  $("testsPanel").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"nearest"});
+}
+$("checkBtn").addEventListener("click", runTests);
+
+/* ---------- Aufgabe anzeigen ---------- */
+function showTask(t, kindLabel){
+  task = t;
+  $("taskTitle").textContent = t && t.titel ? t.titel : "Freies Programmieren";
+  $("taskText").innerHTML = richText(t && t.text ? t.text : "Schreibe dein eigenes Programm und drücke „Ausführen“.");
+  $("taskKind").textContent = kindLabel || (t && t.tests && t.tests.length ? "Aufgabe mit Tests" : "Aufgabe");
+  $("checkBtn").hidden = !(t && t.tests && t.tests.length);
+  renderTests(null);
+}
+
+/* ---------- Link erzeugen und kopieren ---------- */
+$("shareBtn").addEventListener("click", async () => {
+  const name = $("studentName").value.trim();
+  const payload = { v:1, art:"abgabe", name, code: cm.getValue(), aufgabe: task || null, zeit: new Date().toISOString() };
+  const h = await encodePayload(payload);
+  $("shareText").value = baseUrl() + "#" + h;
+  $("shareTitle").textContent = "Dein Link";
+  $("shareNote").textContent = name ? "Kopiere den Link und füge ihn in deinen OneNote-Abschnitt ein. Wer ihn öffnet, sieht genau dein Programm."
+    : "Trage oben noch deinen Namen ein, dann erzeuge den Link neu. Danach kopierst du ihn in deinen OneNote-Abschnitt.";
+  $("sharePanel").hidden=false; $("copyState").textContent="";
+  $("sharePanel").scrollIntoView({block:"nearest"});
+});
+$("copyBtn").addEventListener("click", () => {
+  const ta=$("shareText");
+  const fallback = () => { ta.focus(); ta.select(); $("copyState").textContent="Link ist markiert – jetzt kopieren."; };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(ta.value).then(() => { $("copyState").textContent="Kopiert."; }, fallback);
+  } else fallback();
+});
+
+/* ---------- Lehrkraft: Aufgabe erstellen ---------- */
+function addTestRow(t){
+  const i = $("tRows").children.length + 1;
+  const row=document.createElement("div"); row.className="trow";
+  row.innerHTML = '<label class="field">Test ' + i + ': Eingaben (eine pro Zeile)<textarea class="mono t-in" rows="2"></textarea></label>'
+    + '<div class="field">erwartete Ausgabe<textarea class="mono t-out" rows="2" aria-label="erwartete Ausgabe"></textarea>'
+    + '<label style="display:flex;gap:6px;align-items:center;font-size:12.5px"><input type="checkbox" class="t-mode"> muss nur enthalten sein</label></div>'
+    + '<button class="btn" type="button" data-del>Entfernen</button>';
+  row.querySelector(".t-in").value = t ? (t.eingabe||[]).join("\n") : "";
+  row.querySelector(".t-out").value = t ? (t.ausgabe||"") : "";
+  row.querySelector(".t-mode").checked = !!(t && t.modus==="enthaelt");
+  row.querySelector("[data-del]").addEventListener("click", () => row.remove());
+  $("tRows").appendChild(row);
+}
+function readTeacherTask(){
+  const tests=[...$("tRows").querySelectorAll(".trow")].map(r => {
+    const inp=r.querySelector(".t-in").value.replace(/\r/g,"");
+    const o = { eingabe: inp.trim()==="" ? [] : inp.split("\n"), ausgabe: r.querySelector(".t-out").value.replace(/\r/g,"") };
+    if (r.querySelector(".t-mode").checked) o.modus = "enthaelt";
+    return o;
+  }).filter(t => t.eingabe.length || t.ausgabe.trim()!=="");
+  return { titel: $("tTitle").value.trim() || "Aufgabe", text: $("tText").value, start: cm.getValue(), tests };
+}
+function openTeacher(){
+  $("teacherPanel").hidden=false;
+  if (!$("tRows").children.length){
+    $("tTitle").value = task ? task.titel||"" : ""; $("tText").value = task ? task.text||"" : "";
+    (task && task.tests && task.tests.length ? task.tests : [null]).forEach(addTestRow);
+  }
+  $("teacherPanel").scrollIntoView({block:"nearest"});
+}
+$("teacherToggle").addEventListener("click", () => { if ($("teacherPanel").hidden) openTeacher(); else $("teacherPanel").hidden=true; });
+$("addTest").addEventListener("click", () => addTestRow(null));
+$("applyTask").addEventListener("click", () => { showTask(readTeacherTask()); runTests(); });
+$("taskLinkBtn").addEventListener("click", async () => {
+  const t = readTeacherTask();
+  const h = await encodePayload({ v:1, art:"aufgabe", aufgabe:t });
+  $("shareText").value = baseUrl() + "#" + h;
+  $("shareTitle").textContent = "Aufgabenlink";
+  $("shareNote").textContent = "Diesen Link stellst du in OneNote bereit. Wer ihn öffnet, bekommt Aufgabentext, Startcode und Tests.";
+  $("sharePanel").hidden=false; $("copyState").textContent="";
+  $("sharePanel").scrollIntoView({block:"nearest"});
+});
+
+/* ---------- Start ---------- */
+async function start(){
+  $("studentName").value = store.get("pw:name") || "";
+  $("studentName").addEventListener("input", e => store.set("pw:name", e.target.value));
+
+  const h = location.hash.replace(/^#/,"");
+  let payload = null;
+  if (h && h!=="lehrer" && h!=="frei") payload = await decodePayload(h);
+
+  let code, kindLabel=null, restored=false;
+  if (payload && payload.art==="abgabe"){
+    task = payload.aufgabe || null;
+    taskKey = "abgabe:" + hashStr(h);
+    code = payload.code || "";
+    kindLabel = "Abgabe" + (payload.name ? " von " + payload.name : "") + (payload.zeit ? " · " + new Date(payload.zeit).toLocaleString("de-DE",{dateStyle:"short",timeStyle:"short"}) : "");
+  } else {
+    if (payload && payload.art==="aufgabe") task = payload.aufgabe;
+    else if (h==="frei") task = null;
+    else task = BEISPIEL;
+    taskKey = task ? "a:" + hashStr(JSON.stringify(task)) : "frei";
+    const saved = store.get("pw:"+taskKey);
+    const starter = task ? (task.start||"") : "";
+    if (saved!==null && saved!==starter){ code=saved; restored=true; } else code=starter;
+  }
+  setupEditor(code);
+  showTask(task, kindLabel);
+  $("restoredNote").hidden = !restored;
+  $("resetStarter").addEventListener("click", () => { cm.setValue(task ? (task.start||"") : ""); $("restoredNote").hidden=true; });
+  if (h==="lehrer") openTeacher();
+  if (payload===null && h && h!=="lehrer" && h!=="frei") setStatus("Der Link konnte nicht gelesen werden. Es wird die Beispielaufgabe gezeigt.");
+}
+if (typeof Sk==="undefined" || typeof CodeMirror==="undefined"){
+  $("status").textContent = "Python konnte nicht geladen werden. Prüfe die Internetverbindung und lade die Seite neu.";
+} else start();
+})();
+</script>
+
+</body>
+</html>
